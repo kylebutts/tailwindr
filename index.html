@@ -2,7 +2,8 @@
 <head>
 <title>Tailwind Prose</title>
 
-<!-- css goes here-->
+<!-- css goes here -->
+<link rel='stylesheet' href='tailwind_compiled.css' type='text/css'>
 <!-- End css goes here -->
 
 <!-- Highlight.js -->
@@ -74,7 +75,7 @@ code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
 </style>
 <!-- End Highlight.js -->
 
-<link rel='stylesheet' href='tailwind_compiled.css' type='text/css'>
+
 </head>
 <body>
 
@@ -98,7 +99,8 @@ code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
 </div>
 </div>
 
-
+<!-- Tailwind Typography -->
+<article class="prose md:prose-md lg:prose-lg mx-auto">
 <div id="tailwind-prose" class="section level2">
 <h2>Tailwind Prose</h2>
 <p><a href="https://github.com/tailwindlabs/tailwindcss-typography">Tailwind Typography</a> is TailwindCSS automatic styling for articles generated using md. The <code>tailwindr::tailwind_prose</code> sets up the document to surround the content with an <code>&lt;article&gt;</code> tag with <code>class = "prose"</code>. This is all that needs to be done and Tailwind Typography will make beautiful documents.</p>
@@ -270,6 +272,8 @@ Warning this statistical method can be a bit tricky. There is a subtle assumptio
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/article&gt;</span></span></code></pre></div>
 <p>For more information about how to use the plugin and the features it includes, <a href="https://github.com/tailwindcss/typography/blob/master/README.md">read the documentation</a>.</p>
 </div>
+</article>
+<!-- End Tailwind Typography -->
 
 </div>
 <!-- End custom layout -->
