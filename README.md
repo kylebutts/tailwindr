@@ -78,6 +78,14 @@ View it live by clicking on the image
 <a href="https://kylebutts.com/tailwindr/">
 <img src="vignettes/images/tailwind_prose.png" width="100%" /> </a>
 
+### Custom templates
+
+You can also write custom templates to surround the Rmd output in any
+HTML you want. Look at
+<https://github.com/kylebutts/tailwindr/tree/gh-pages/ex_custom_theme>
+for an example, or view it live at
+<https://kylebutts.com/tailwindr/ex_custom_theme%22>
+
 ### Details
 
 The parameter ‘slim_css’ uses PostCSS to strip TailwindCSS to include
