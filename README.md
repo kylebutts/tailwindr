@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of tailwindr is to …
+The goal of tailwindr is to bring TailwindCSS to RMarkdown
 
 ## Installation
 
