@@ -1,0 +1,48 @@
+---
+title: "Theming with TailwindCSS"
+subtitle: "Using Custom Templates"
+author: "Kyle Butts"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  tailwindr::tailwind_prose:
+    highlight: zenburn
+    self_contained: false
+    template: "custom_template.html"
+    slim_css: false
+    css: ["style.css"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = "#>",
+  dpi = 300,
+  out.width = "100%"
+)
+
+library(tidyverse)
+library(gganimate)
+```
+
+## History of National Park Service from Wikipedia
+
+Yellowstone National Park was created as the first national park in the United States. In 1872, there was no state government to manage it, so the federal government assumed direct control. National parks and national monuments in the United States were originally individually managed under the auspices of the Department of the Interior. The movement for an independent agency to oversee these federal lands was spearheaded by business magnate and conservationist Stephen Mather, as well as J. Horace McFarland.
+
+With the help of journalist Robert Sterling Yard, Mather ran a publicity campaign for the Department of the Interior. They wrote numerous articles that praised the scenic and historic qualities of the parks and their possibilities for educational, inspirational, and recreational benefits.
+
+This campaign resulted in the creation of the NPS. On August 25, 1916, President Woodrow Wilson signed the National Park Service Organic Act that mandated the agency "to conserve the scenery and the natural and historic objects and wildlife therein, and to provide for the enjoyment of the same in such manner and by such means as will leave them unimpaired for the enjoyment of future generations". Mather became the first director of the newly formed NPS.
+
+On March 3, 1933, President Herbert Hoover signed the Reorganization Act of 1933. The act authorized the President to reorganize the executive branch of the United States government. Later that summer, the new president, Franklin D. Roosevelt, made use of this power after NPS Deputy Director Horace M. Albright suggested that the NPS, rather than the War Department should manage historic American Civil War sites.
+
+President Roosevelt agreed and issued two executive orders to implement the reorganization. These two executive orders transferred to the NPS all of the War Department's historic sites as well as national monuments that the Department of Agriculture had managed and parks in and around Washington, D.C. that an independent federal office had previously operated.
+
+The demand for parks after the end of the World War II left the parks overburdened with demands that the NPS could not meet. In 1951, Conrad Wirth became director of the NPS and began to bring park facilities up to the standards that the public was expecting.
+
+In 1952, with the support of President Dwight D. Eisenhower, Wirth began Mission 66, a ten-year effort to upgrade and expand park facilities for the 50th anniversary of the Park Service. New parks were added to preserve unique resources and existing park facilities were upgraded and expanded.
+
+In 1966, as the Park Service turned 50 years old, emphasis began to turn from just saving great and wonderful scenery and unique natural features to making parks accessible to the public. Director George Hartzog began the process with the creation of the National Lakeshores and then National Recreation Areas.
+
+```{r, echo = FALSE, out.width = "100%", fig.cap = "Figure from [Z3tt](https://twitter.com/cedscherer)"}
+knitr::include_graphics("https://raw.githubusercontent.com/Z3tt/TidyTuesday/master/plots/2019_38/2019_38_NationalParks_teaser.png")
+```
+

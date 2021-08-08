@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>$title$</title>
+
+<!-- css goes here -->
+<!-- End css goes here -->
+
+<!-- Highlight.js -->
+$if(highlightjs)$
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+href="$highlightjs$/$if(highlightjs-theme)$$highlightjs-theme$$else$default$endif$.css"
+$if(html5)$$else$type="text/css" $endif$/>
+<script src="$highlightjs$/highlight.js"></script>
+<style type="text/css">
+pre:not([class]) {
+background-color: white;
+}
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+window.setTimeout(function() {
+hljs.initHighlighting();
+}, 0);
+}
+</script>
+$endif$
+
+$if(highlighting-css)$
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+$highlighting-css$
+</style>
+$endif$
+<!-- End Highlight.js -->
+
+
+</head>
+<body>
+
+<!-- include-before -->
+$for(include-before)$
+$include-before$
+$endfor$
+<!-- End include-before -->
+
+
+<!-- custom layout -->
+
+<div class="bg-topo flex flex-col w-full text-center py-24">
+<div>
+	<h1 class="text-3xl font-extrabold text-black sm:text-4xl md:text-5xl md:leading-[3.5rem]">$title$</h1>
+	<h2 class="text-2xl text-gray-800 tracking-tight sm:text-3xl md:text-3xl md:leading-[3.5rem] italic pt-2">$subtitle$</h2>
+</div>
+<div class="py-2">
+	<span class="text-base leading-6 font-medium text-gray-800">By <span class="text-semibold">$author$</span></span> ·
+	<div class="sr-only">Published on </div><span class="text-base leading-6 font-medium text-gray-800"><time>$date$</time></span>
+</div>
+</div>
+
+<div class="px-2 py-4 max-w-3xl mx-auto sm:px-4 sm:py-8 lg:max-w-4xl lg:py-8 lg:px-4 xl:max-w-6xl -mt-12 mb-12 bg-white md:shadow-xl rounded-lg bg-grey-100">
+
+<!-- Tailwind Typography -->
+<article class="prose md:prose-md lg:prose-lg mx-auto">
+$body$
+</article>
+<!-- End Tailwind Typography -->
+
+</div>
+<!-- End custom layout -->
+
+<!-- include-after -->
+$for(include-after)$
+$include-after$
+$endfor$
+<!-- End include-after -->
+
+</body>
+</html>
+
+
