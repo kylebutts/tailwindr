@@ -1,0 +1,196 @@
+---
+title: "Tailwind Prose"
+author: "Kyle Butts"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  tailwindr::tailwind_prose:
+    highlight: zenburn
+    self_contained: false
+    slim_css: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dpi = 300,
+  out.width = "100%"
+)
+library(tidyverse)
+```
+
+## Tailwind Prose
+
+[Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography) is TailwindCSS automatic styling for articles generated using md. The `tailwindr::tailwind_prose` sets up the document to surround the content with an `<article>` tag with `class = "prose"`. This is all that needs to be done and Tailwind Typography will make beautiful documents.
+
+### Text style
+
+> Great and inspirational blockquote goes here 
+
+**Bold font** and *italics* are supported as well as `code` too.
+
+
+### Code blocks
+For example, code blocks are displayed beautifully
+
+```{r,}
+fixest::feols(hp ~ mpg, mtcars)
+```
+
+
+
+### Including Plots
+
+You can also embed plots with beautiful captions.
+
+```{r penguins, results='hide', warning=FALSE, message=FALSE, echo=TRUE, fig.show="asis", fig.width = 8, fig.height = 4, dpi = 300, out.width = "100%", fig.cap = c("Figure: plot of `penguins` dataset from package `palmerpenguins`")}
+library(palmerpenguins)
+data(penguins)
+
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(aes(fill = species), alpha = 0.5, position = "identity") +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  labs(x = "Flipper Length (mm)", y = "Count", fill = "Species") +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+### TailwindCSS 
+
+You can also use TailwindCSS within this document. For example
+
+<div class="flex items-center p-2 rounded-lg shadow-sm bg-yellow-200 ">
+<div class="p-3 mr-4">
+  <svg class="w-10 h-10 px-1 text-400" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M1.75 1.5a.25.25 0 00-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h6.5a.25.25 0 00.25-.25v-9.5a.25.25 0 00-.25-.25H1.75zM0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0114.25 13H8.06l-2.573 2.573A1.457 1.457 0 013 14.543V13H1.75A1.75 1.75 0 010 11.25v-9.5zM9 9a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
+  </svg>
+</div>
+<div>
+  <p class="text-lg text-gray-700 dark:text-gray-200">
+    Warning this statistical method can be a bit tricky. There is a subtle 
+    assumption that you should really think about and failing to do so will be 
+    a bad thing, so do a good thing and think about it.
+  </p>
+</div>
+</div>
+
+The html code can be inserted directly into the Rmd file as follows.
+```html
+<div class="flex items-center p-2 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-lg shadow-sm">
+<div class="p-3 mr-4">
+  <svg class="w-10 h-10 px-1 text-400" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M1.75 1.5a.25.25 0 00-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h6.5a.25.25 0 00.25-.25v-9.5a.25.25 0 00-.25-.25H1.75zM0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0114.25 13H8.06l-2.573 2.573A1.457 1.457 0 013 14.543V13H1.75A1.75 1.75 0 010 11.25v-9.5zM9 9a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
+  </svg>
+</div>
+<div>
+  <p class="text-lg text-gray-700 dark:text-gray-200">
+    Warning this statistical method can be a bit tricky. There is a subtle 
+    assumption that you should really think about and failing to do so will be 
+    a bad thing, so do a good thing and think about it.
+  </p>
+</div>
+</div>
+```
+
+However, for reproducability and clean looking code, you can write helper functions to generate the html directly for you. Here is a function that will automatically create the above html. Add the options `results = 'asis'` and `echo = FALSE` to the code chunk to display the results as HTML without displaying the code.
+
+```{r}
+library(htmltools)
+
+warning_box <- function(text = "") {
+  div(class="flex items-center p-2 rounded-lg shadow-sm bg-yellow-200",
+    # SVG Logo
+    div(class = "p-3 mr-4", 
+      HTML('<svg class="w-10 h-10 px-1 text-400" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M1.75 1.5a.25.25 0 00-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h6.5a.25.25 0 00.25-.25v-9.5a.25.25 0 00-.25-.25H1.75zM0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0114.25 13H8.06l-2.573 2.573A1.457 1.457 0 013 14.543V13H1.75A1.75 1.75 0 010 11.25v-9.5zM9 9a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
+  </svg>')  
+    ),
+    # Text
+    div(p(class = "text-lg text-grey-700", text))
+  )
+  
+}
+
+warning_box(text = "Example warning text goes here")
+```
+
+Often times once you design a component, it becomes super easy to make variants, for example: 
+
+```{r, results='asis'}
+graph_box <- function(text = "") {
+  div(class="flex items-center p-2 rounded-lg shadow-sm bg-pink-200",
+    # SVG Logo
+    div(class = "p-3 mr-4", 
+      HTML('<svg class="w-10 h-10 px-1 text-400" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M1.5 1.75a.75.75 0 00-1.5 0v12.5c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H1.5V1.75zm14.28 2.53a.75.75 0 00-1.06-1.06L10 7.94 7.53 5.47a.75.75 0 00-1.06 0L3.22 8.72a.75.75 0 001.06 1.06L7 7.06l2.47 2.47a.75.75 0 001.06 0l5.25-5.25z"></path>
+  </svg>')  
+    ),
+    # Text
+    div(p(class = "text-lg text-grey-700", text))
+  )
+  
+}
+
+code_box <- function(text = "") {
+  div(class="flex items-center p-2 rounded-lg shadow-sm bg-purple-200",
+    # SVG Logo
+    div(class = "p-3 mr-4", 
+      HTML('<svg class="w-10 h-10 px-1 text-400" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path>
+  </svg>')  
+    ),
+    # Text
+    div(p(class = "text-lg text-grey-700", text))
+  )
+  
+}
+  
+graph_box(text = "Here is a data driven example")
+```
+
+```{r, results = 'asis'}
+code_box(text = "Here is an example of code")
+```
+
+By the way, the svg icons are created from the fantastic package [`icons`](https://github.com/mitchelloharawild/icons)
+
+
+
+
+## Tailwind Prose
+
+By default, Tailwind removes all of the default browser styling from paragraphs, headings, lists and more. This ends up being really useful for building application UIs because you spend less time undoing user-agent styles, but when you _really are_ just trying to style some content that came from a rich-text editor in a CMS or a markdown file, it can be surprising and unintuitive.
+
+We get lots of complaints about it actually, with people regularly asking us things like:
+
+> Why is Tailwind removing the default styles on my `h1` elements? How do I disable this? What do you mean I lose all the other base styles too?
+
+We hear you, but we're not convinced that simply disabling our base styles is what you really want. You don't want to have to remove annoying margins every time you use a `p` element in a piece of your dashboard UI. And I doubt you really want your blog posts to use the user-agent styles either — you want them to look _awesome_, not awful.
+
+The `@tailwindcss/typography` plugin is our attempt to give you what you _actually_ want, without any of the downsides of doing something stupid like disabling our base styles.
+
+It adds a new `prose` class that you can slap on any block of vanilla HTML content and turn it into a beautiful, well-formatted document:
+
+```html
+<article class="prose">
+  <h1>Garlic bread with cheese: What the science tells us</h1>
+  <p>
+    For years parents have espoused the health benefits of eating garlic bread with cheese to their
+    children, with the food earning such an iconic status in our culture that kids will often dress
+    up as warm, cheesy loaf for Halloween.
+  </p>
+  <p>
+    But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
+    springing up around the country.
+  </p>
+  <!-- ... -->
+</article>
+```
+
+For more information about how to use the plugin and the features it includes, [read the documentation](https://github.com/tailwindcss/typography/blob/master/README.md).
+
