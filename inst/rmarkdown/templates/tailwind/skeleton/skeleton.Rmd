@@ -6,6 +6,7 @@ output:
   tailwindr::tailwind:
     highlight: zenburn
     self_contained: false
+    slim_css: TRUE
     css: []
 ---
 
