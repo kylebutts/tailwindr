@@ -160,7 +160,7 @@ tailwind_prose = function(highlight = "zenburn", slim_css = FALSE, self_containe
     }
 
     # Allow custom templates
-    if(is.null(template)) template <- system.file("templates/tailwind/tailwind.html", package = "tailwindr")
+    if(is.null(template)) template <- system.file("templates/tailwind_prose/tailwind_prose.html", package = "tailwindr")
 
     # https://github.com/rstudio/rmarkdown/blob/0af6b3556adf6e393b2da23c66c695724ea7bd2d/R/html_notebook.R
     # generate actual format

@@ -6,12 +6,8 @@ output:
   tailwindr::tailwind_prose:
     highlight: zenburn
     self_contained: false
+    slim_css: TRUE
 ---
-
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Tailwind Prose}
--->
 
 
 ```{r setup, include = FALSE}
