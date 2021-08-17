@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-inst/doc
+inst/dev
 .DS_Store

@@ -2,3 +2,4 @@
 
 export(tailwind)
 export(tailwind_prose)
+export(use_tailwind)

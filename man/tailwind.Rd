@@ -26,17 +26,17 @@ Details for more information.}
 dependencies, using data: URIs to incorporate the contents of linked scripts,
 stylesheets, images, and videos. Note that even for self contained documents
 MathJax is still loaded externally (this is necessary because of its size).
-*Important:* Everything will be self_contained except for the compiled css
+\emph{Important:} Everything will be self_contained except for the compiled css
 (for now!)}
 
 \item{css}{CSS files to include. See Details for moremore details on using
-`@apply`.}
+\verb{@apply}.}
 
 \item{clean_supporting}{Logical. Whether or not to clear supporting files.
 Default is TRUE.}
 
-\item{template}{Pandoc template to use for rendering. Pass `NULL` to use
-built-in tailwand template. See `example` folder in source code for example
+\item{template}{Pandoc template to use for rendering. Pass \code{NULL} to use
+built-in tailwand template. See \code{example} folder in source code for example
 of using Tailwind CSS in template}
 }
 \description{
@@ -45,15 +45,15 @@ TailwindCSS in Rmd documents
 \details{
 Requires Node (npm) to be installed on system.
 
-  The parameter `slim_css` uses PostCSS to only include the css classes that
-  appear in the final html document. This is great for keeping files very
-  small, but bad if you are trying to edit through chrome or firefox for example.
-  I recommend putting `slim_css: false` into the yaml while developing and
-  `slim_css: true` when ready to finish.
+The parameter \code{slim_css} uses PostCSS to only include the css classes that
+appear in the final html document. This is great for keeping files very
+small, but bad if you are trying to edit through chrome or firefox for example.
+I recommend putting \code{slim_css: false} into the yaml while developing and
+\code{slim_css: true} when ready to finish.
 
-  Custom css is possible by passing objects to the `css` yaml parameter.
-  Importantly, you can use the `@apply` directives that come with tailwind
-  to easily compile set of classes. See
-  \url{https://tailwindcss.com/docs/functions-and-directives#apply}
-  for more details.
+Custom css is possible by passing objects to the \code{css} yaml parameter.
+Importantly, you can use the \verb{@apply} directives that come with tailwind
+to easily compile set of classes. See
+\url{https://tailwindcss.com/docs/functions-and-directives#apply}
+for more details.
 }

@@ -25,23 +25,22 @@
 #' @param slim_css Whether or not to include entirety of TailwindCSS or not. See
 #'   Details for more information.
 #' @param self_contained Produce a standalone HTML file with no external
-#'   dependencies, using data: URIs to incorporate the contents of linked scripts,
-#'   stylesheets, images, and videos. Note that even for self contained documents
-#'   MathJax is still loaded externally (this is necessary because of its size).
-#'   *Important:* Everything will be self_contained except for the compiled css
-#'   (for now!)
-#' @param css CSS files to include. See Details for moremore details on using
+#'   dependencies, using data URIs to incorporate the contents of linked scripts,
+#'   stylesheets, images, and videos. Note that if true, this requires Node (npm)
+#'   to be installed on the system
+#' @param css CSS files to include. See Details for more details on using
 #'   `@apply`.
 #' @param clean_supporting Logical. Whether or not to clear supporting files.
 #'   Default is TRUE.
 #' @param template Pandoc template to use for rendering. Pass `NULL` to use
-#'   built-in tailwand template. See `example` folder in source code for example
-#'   of using Tailwind CSS in template. Note you should use
-#'   `<article class="prose">` to use Tailwind Typography!
+#'   built-in tailwind template (or simply don't pass anything).
+#'   See `example` folder in source code for example of using Tailwind CSS in
+#'   template. Note you should use `<article class="prose">` to use
+#'   Tailwind Typography!
 #'
 #' @export
 #'
-tailwind_prose = function(highlight = "zenburn", slim_css = FALSE, self_contained = TRUE, css = NULL, clean_supporting = TRUE, template = NULL, ...) {
+tailwind_prose = function(highlight = "zenburn", slim_css = FALSE, self_contained = TRUE, css = NULL, clean_supporting = TRUE, template = NULL, tabset = TRUE, ...) {
 
     # Store output_dir
     output_dir <- ""
@@ -161,6 +160,7 @@ tailwind_prose = function(highlight = "zenburn", slim_css = FALSE, self_containe
 
     # Allow custom templates
     if(is.null(template)) template <- system.file("templates/tailwind_prose/tailwind_prose.html", package = "tailwindr")
+
 
     # https://github.com/rstudio/rmarkdown/blob/0af6b3556adf6e393b2da23c66c695724ea7bd2d/R/html_notebook.R
     # generate actual format
