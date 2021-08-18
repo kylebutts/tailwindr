@@ -2,7 +2,7 @@
 % Please edit documentation in R/use_tailwind.R
 \name{use_tailwind}
 \alias{use_tailwind}
-\title{TailwindCSS with Shiny}
+\title{TailwindCSS in Rmarkdown and Shiny applications}
 \usage{
 use_tailwind(css = NULL, tailwindConfig = NULL)
 }
@@ -14,11 +14,11 @@ Requires two things:
 \enumerate{
 \item The json config needs to be defined as \code{window.tailwindConfig = {...}}
 \item After defining the config, use \code{window.tailwindCSS.refresh();}
-See details for more details on format.
+See details section \verb{Custom Tailwind Config}for more details on format.
 }}
 }
 \description{
-TailwindCSS with Shiny
+TailwindCSS in Rmarkdown and Shiny applications
 }
 \section{About Tailwind}{
 TailwindCSS is a utility-based design framework that makes designing simple.
@@ -53,8 +53,8 @@ version of Tailwind Just in Time. See
 Custom css can use the \verb{@apply} directives that come with tailwind to easily
 compile set of classes. See
 \url{https://tailwindcss.com/docs/functions-and-directives#apply} for
-more details. It just \emph{has} to be passed to the use_tailwind function if you
-want to use the \verb{@apply} directive.
+more details. It just \strong{has} to be passed to the use_tailwind function if
+you want to use the \verb{@apply} directive.
 \subsection{Example css}{
 
 For example, we could create a custom button with class btn. And create a
@@ -73,7 +73,7 @@ blue and red variant\if{html}{\out{<div class="{css}">}}\preformatted{  /* File:
 }
 }
 
-\section{Custom Taiwlind Config}{
+\section{Custom Tailwind Config}{
 Custom configuration of tailwind is also possible. If you know Tailwind,
 things will look slightly different. You need to create a variable
 \code{window.tailwindConfig} which will contain the JSON file and you must

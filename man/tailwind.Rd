@@ -6,9 +6,10 @@
 \usage{
 tailwind(
   highlight = "zenburn",
-  slim_css = FALSE,
-  self_contained = FALSE,
   css = NULL,
+  tailwind_config = NULL,
+  slim_css = FALSE,
+  self_contained = TRUE,
   clean_supporting = TRUE,
   template = NULL,
   ...
@@ -19,31 +20,67 @@ tailwind(
 "default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn",
 "haddock", and "textmate". Pass NULL to prevent syntax highlighting.}
 
+\item{css}{CSS files to include. See Details for more details on using
+\verb{@apply}.}
+
+\item{tailwind_config}{Custom tailwind config file.
+If \code{self_contained} is true, this is the standard config format described
+by \url{https://tailwindcss.com/docs/configuration}
+If \code{self_contained} is false, then you should use a config for the JIT CDN
+version following the details in \code{tailwindr::use_tailwind}.}
+
 \item{slim_css}{Whether or not to include entirety of TailwindCSS or not. See
 Details for more information.}
 
 \item{self_contained}{Produce a standalone HTML file with no external
-dependencies, using data: URIs to incorporate the contents of linked scripts,
-stylesheets, images, and videos. Note that even for self contained documents
-MathJax is still loaded externally (this is necessary because of its size).
-\emph{Important:} Everything will be self_contained except for the compiled css
-(for now!)}
-
-\item{css}{CSS files to include. See Details for moremore details on using
-\verb{@apply}.}
+dependencies, using data URIs to incorporate the contents of linked scripts,
+stylesheets, images, and videos. Note that if true, this requires Node (npm)
+to be installed on the system}
 
 \item{clean_supporting}{Logical. Whether or not to clear supporting files.
 Default is TRUE.}
 
 \item{template}{Pandoc template to use for rendering. Pass \code{NULL} to use
 built-in tailwand template. See \code{example} folder in source code for example
-of using Tailwind CSS in template}
+of using Tailwind CSS in template.}
+
+\item{...}{Additional arguments passed to \code{rmarkdown::html_document} base_format.}
 }
 \description{
 TailwindCSS in Rmd documents
 }
-\details{
-Requires Node (npm) to be installed on system.
+\section{About Tailwind}{
+TailwindCSS is a utility-based design framework that makes designing simple.
+It follows the \verb{atomic css} framework that says 1 class = 1 task. For example,
+the \code{py-4} class adds \verb{4rem} of padding in the y direction. \code{text-gray-500}
+sets the text to the color gray-500 which is part of Tailwind's beautiful
+default color scheme. \code{font-semibold} sets the font weight to 600.
+
+For responsive design, you can add prefixes to class names. For example
+\verb{px-2 md:px-4} increases the x-direction padding on medium or larger screens.
+There are a ton of cool features, for example
+\verb{bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500} crates a gradient
+background from yellow-400 to pink-500 passing via red-500 (see it here:
+\url{https://tailwindcss.com/docs/background-image#linear-gradients}).
+
+For complete documentation, see \url{https://tailwindcss.com/docs/}
+}
+
+\section{Tailwind Typography}{
+Uses Tailwind Typography. This is an opinionated css framework that creates
+beautiful text-based documents that work incredibly well for .Rmd documents.
+For more information visit
+\url{https://github.com/tailwindlabs/tailwindcss-typography}.
+}
+
+\section{\code{self_contained} Option}{
+There are two option for compiling CSS:
+\enumerate{
+\item \code{self_contained: true}
+Requires Node (npm) to be installed on system. This option will post_process
+the knitted document and create the custom tailwind css. For example,
+css classes with the \verb{@apply} tag will be compiled and tailwind will be loaded.
+}
 
 The parameter \code{slim_css} uses PostCSS to only include the css classes that
 appear in the final html document. This is great for keeping files very
@@ -51,9 +88,51 @@ small, but bad if you are trying to edit through chrome or firefox for example.
 I recommend putting \code{slim_css: false} into the yaml while developing and
 \code{slim_css: true} when ready to finish.
 
+It is possible to pass a custom tailwind configuration using the standard
+format (\url{https://tailwindcss.com/docs/configuration}). This will be
+passed to the node script as required.
+\enumerate{
+\item \code{self_contained: false}
+Does not require node (npm) to be installed. Instead of post_processing the
+css, instead this option will use Tailwind Just-in-time Compiler which allows
+css to be generated as needed in the document. This requires internet
+connection, though. This is great for opening documents and trying out
+classes with Chrome/Firefox Developer Tools. For more infomration on the
+Just-in-time feature, see
+\url{https://beyondco.de/blog/tailwind-jit-compiler-via-cdn}.
+}
+
+Tailwind configuration is also possible in this mode. However, it requires
+a non-standard config file. See \code{tailwindr::use_tailwind} for details.
+}
+
+\section{Custom CSS}{
+Custom css can use the \verb{@apply} directives that come with tailwind to easily
+compile set of classes. See
+\url{https://tailwindcss.com/docs/functions-and-directives#apply} for
+more details. It just \strong{has} to be passed to the use_tailwind function if
+you want to use the \verb{@apply} directive.
+\subsection{Example css}{
+
+For example, we could create a custom button with class btn. And create a
+blue and red variant\if{html}{\out{<div class="{css}">}}\preformatted{  /* File: style.css */
+
+  .btn \{
+    @apply font-bold py-2 px-4 rounded;
+  \}
+  .btn-blue \{
+    @apply bg-blue-500 hover:bg-blue-700 text-white;
+  \}
+  .btn-red \{
+    @apply bg-red-500 hover:bg-red-700 text-white;
+  \}
+}\if{html}{\out{</div>}}
+
 Custom css is possible by passing objects to the \code{css} yaml parameter.
 Importantly, you can use the \verb{@apply} directives that come with tailwind
 to easily compile set of classes. See
 \url{https://tailwindcss.com/docs/functions-and-directives#apply}
 for more details.
 }
+}
+

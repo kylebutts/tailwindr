@@ -1,4 +1,4 @@
-#' TailwindCSS with Shiny
+#' TailwindCSS in Rmarkdown and Shiny applications
 #'
 #' @details
 #'

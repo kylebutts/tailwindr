@@ -16,7 +16,10 @@ LazyData: true
 Imports: 
     rmarkdown,
     knitr,
-    htmltools
+    htmltools,
+    xfun,
+    glue,
+    stringr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr

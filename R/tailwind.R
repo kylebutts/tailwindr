@@ -1,4 +1,4 @@
-#' TailwindCSS with Tailwind Typography in Rmd documents
+#' TailwindCSS in Rmd documents
 #'
 #' @details
 #'  # About Tailwind
@@ -110,15 +110,13 @@
 #' @param clean_supporting Logical. Whether or not to clear supporting files.
 #'   Default is TRUE.
 #' @param template Pandoc template to use for rendering. Pass `NULL` to use
-#'   built-in tailwind template (or simply don't pass anything).
-#'   See `example` folder in source code for example of using Tailwind CSS in
-#'   template. Note you should use `<article class="prose">` to use
-#'   Tailwind Typography!
+#'   built-in tailwand template. See `example` folder in source code for example
+#'   of using Tailwind CSS in template.
 #' @param ... Additional arguments passed to `rmarkdown::html_document` base_format.
 #'
 #' @export
 #'
-tailwind_prose = function(highlight = "zenburn", css = NULL, tailwind_config = NULL, slim_css = FALSE, self_contained = TRUE, clean_supporting = TRUE, template = NULL, ...) {
+tailwind = function(highlight = "zenburn", css = NULL, tailwind_config = NULL, slim_css = FALSE, self_contained = TRUE, clean_supporting = TRUE, template = NULL, ...) {
 
     # Store output_dir
     output_dir <- ""
@@ -134,7 +132,6 @@ tailwind_prose = function(highlight = "zenburn", css = NULL, tailwind_config = N
         invisible(NULL)
     }
 
-
     # Post processor
     # PurgeCSS
     post_processor <- function(metadata, input_file, output_file, clean, verbose) {
@@ -144,11 +141,11 @@ tailwind_prose = function(highlight = "zenburn", css = NULL, tailwind_config = N
 
         # Input css
         css_idx <- which(stringr::str_detect(output_str, "<!-- css goes here -->"))
-
         # If no input css, put before </head>
         if(length(css_idx) == 0) {
             css_idx <- which(stringr::str_detect(output_str, "</head>")) - 1
         }
+
 
         if(self_contained) {
             # tailwind_prose.css
@@ -278,23 +275,23 @@ tailwind_prose = function(highlight = "zenburn", css = NULL, tailwind_config = N
         output_file
     }
 
+
     # Allow custom templates
     if(!is.null(template)) template <- system.file(files_dir, template)
-    if(is.null(template)) template <- system.file("templates/tailwind_prose/tailwind_prose.html", package = "tailwindr")
-
+    if(is.null(template)) template <- system.file("templates/tailwind/tailwind.html", package = "tailwindr")
 
     # https://github.com/rstudio/rmarkdown/blob/0af6b3556adf6e393b2da23c66c695724ea7bd2d/R/html_notebook.R
     # generate actual format
     base_format <- rmarkdown::html_document(
-            fig_width = 8, fig_height = 4,
-            theme = NULL, highlight = highlight, css = compiled_css,
-            self_contained = self_contained,
-            template = template,
-            ...
-        )
+        fig_width = 8, fig_height = 4,
+        theme = NULL, highlight = highlight, css = compiled_css,
+        self_contained = self_contained,
+        template = template,
+        ...
+    )
 
     rmarkdown::output_format(
-        knitr = tailwind_prose_knitr_options(),
+        knitr = tailwind_knitr_options(),
         pandoc = NULL,
         base_format =  base_format,
         pre_processor = pre_processor,
@@ -306,7 +303,8 @@ tailwind_prose = function(highlight = "zenburn", css = NULL, tailwind_config = N
 
 # From https://github.com/rstudio/rmarkdown/blob/0af6b3556adf6e393b2da23c66c695724ea7bd2d/R/html_notebook.R
 # This uses the default knit hooks plus a custom one for figures
-tailwind_prose_knitr_options <- function() {
+#
+tailwind_knitr_options <- function() {
 
     # save original hooks from knitr and restore after we've stored requisite
     # hooks for our output format
@@ -336,8 +334,8 @@ tailwind_prose_knitr_options <- function() {
         if(options$dev == "svg" | options$dev == "svglite") {
             as.character(tags$figure(
                 tags$div(style = style,
-                    # cat svg to HTML
-                    htmltools::HTML(paste(readLines(x), collapse = ''))
+                     # cat svg to HTML
+                     htmltools::HTML(paste(readLines(x), collapse = ''))
                 ),
                 tags$figcaption(cap)
             ))
